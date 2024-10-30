@@ -1,0 +1,65 @@
+---
+import { races } from '../data/races';
+
+const uniqueTypes = [...new Set(races.map(race => race.type))];
+const uniqueDistances = [...new Set(races.map(race => race.distance))];
+const uniqueYears = [...new Set(races.map(race => new Date(race.date).getFullYear()))];
+---
+<div class="bg-white p-4 rounded-lg shadow mb-6">
+  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <input
+      type="text"
+      placeholder="Search race name..."
+      class="search-input p-2 border rounded"
+      id="searchInput"
+    />
+    <select id="typeFilter" class="p-2 border rounded">
+      <option value="">All Types</option>
+      {uniqueTypes.map(type => (
+        <option value={type}>{type}</option>
+      ))}
+    </select>
+    <select id="distanceFilter" class="p-2 border rounded">
+      <option value="">All Distances</option>
+      {uniqueDistances.map(distance => (
+        <option value={distance}>{distance}km</option>
+      ))}
+    </select>
+    <select id="yearFilter" class="p-2 border rounded">
+      <option value="">All Years</option>
+      {uniqueYears.map(year => (
+        <option value={year}>{year}</option>
+      ))}
+    </select>
+  </div>
+</div>
+
+<script>
+  function filterRaces() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const typeFilter = document.getElementById('typeFilter').value;
+    const distanceFilter = document.getElementById('distanceFilter').value;
+    const yearFilter = document.getElementById('yearFilter').value;
+    
+    const races = document.querySelectorAll('.race-row');
+    
+    races.forEach(race => {
+      const name = race.getAttribute('data-name').toLowerCase();
+      const type = race.getAttribute('data-type');
+      const distance = race.getAttribute('data-distance');
+      const year = race.getAttribute('data-year');
+      
+      const matchesSearch = name.includes(searchInput);
+      const matchesType = !typeFilter || type === typeFilter;
+      const matchesDistance = !distanceFilter || distance === distanceFilter;
+      const matchesYear = !yearFilter || year === yearFilter;
+      
+      (race as HTMLElement).style.display = matchesSearch && matchesType && matchesDistance && matchesYear ? '' : 'none';
+    });
+  }
+
+  // Add event listeners
+  document.getElementById('searchInput').addEventListener('input', filterRaces);
+  document.getElementById('typeFilter').addEventListener('change', filterRaces);
+  document.getElementById('distanceFilter').addEventListener('change', filterRaces);
+</script>

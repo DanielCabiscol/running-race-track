@@ -1,0 +1,36 @@
+---
+import { races } from '../data/races';
+import { getDistanceName } from "../utils";
+
+// Group races by distance and find PRs
+const personalRecords = races.reduce((acc, race) => {
+  if (!acc[race.distance] || race.timeSeconds < acc[race.distance].timeSeconds) {
+    acc[race.distance] = race;
+  }
+  return acc;
+}, {});
+
+function formatTime(timeInSeconds: number): string {
+  const hours = Math.floor(timeInSeconds / 3600);
+  const minutes = Math.floor((timeInSeconds % 3600) / 60);
+  const seconds = timeInSeconds % 60;
+  
+  if (hours > 0) {
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  }
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+---
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-6xl mx-auto -mt-10 mb-8 px-4">
+  {Object.entries(personalRecords).map(([distance, race]) => (
+    <div class="bg-white rounded-lg shadow-lg p-6 transform hover:scale-105 transition-transform duration-200">
+      <h3 class="text-lg font-semibold text-slate-800 mb-2">{getDistanceName(race.distance)}</h3>
+      <div class="space-y-2">
+        <p class="text-sm text-slate-600">Best Time: <span class="font-bold text-slate-800">{formatTime(race.timeSeconds)}</span></p>
+        <p class="text-sm text-slate-600">Distance: <span class="font-bold text-slate-800">{race.distance}km</span></p>
+        <p class="text-sm text-slate-600">Date: <span class="font-bold text-slate-800">{race.date}</span></p>
+        <p class="text-sm text-slate-600 truncate">Race: <span class="font-bold text-slate-800">{race.name}</span></p>
+      </div>
+    </div>
+  ))}
+</div>

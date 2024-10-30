@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import PersonalRecords from '../components/PersonalRecords.astro';
+import RaceFilters from '../components/RaceFilters.astro';
+import RaceGrid from '../components/RaceGrid.astro';
+import ProgressCharts from '../components/ProgressCharts.astro';
+---
+
+<Layout title="My Running Results">
+  <Header />
+  <Hero />
+  <PersonalRecords />
+  <main class="container mx-auto px-4 py-8">
+    <RaceFilters />
+    <RaceGrid />
+    <ProgressCharts />
+  </main>
+</Layout>
