@@ -120,7 +120,7 @@ export const races: Race[] = [
     location: 'Barcelona'
   },
   {
-    date: '2023-05-32',
+    date: '2023-05-21',
     name: 'Dir Diagonal',
     type: 'Normal',
     distance: 10,
@@ -141,7 +141,7 @@ export const races: Race[] = [
     date: '2023-06-18',
     name: 'CCMA TV3',
     type: 'Normal',
-    distance: 7,
+    distance: 6,
     timeSeconds: 1649, // 27:29
     isPR: false,
     location: 'Barcelona'
