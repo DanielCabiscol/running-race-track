@@ -62,4 +62,5 @@ const uniqueYears = [...new Set(races.map(race => new Date(race.date).getFullYea
   document.getElementById('searchInput').addEventListener('input', filterRaces);
   document.getElementById('typeFilter').addEventListener('change', filterRaces);
   document.getElementById('distanceFilter').addEventListener('change', filterRaces);
+  document.getElementById('yearFilter').addEventListener('change', filterRaces);
 </script>
